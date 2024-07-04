@@ -10,6 +10,12 @@ def get_soundex_code(c):
     }
     return mapping.get(c, '0')  # Default to '0' for non-mapped characters
 
+def code_checker(name,i,code,prev_code,soundex):
+   if (code != '0' and code != prev_code) or ((name[i-1].upper() in ['A','E','I','O','U']) and code == prev_code):
+        soundex += code
+        prev_code = code
+   return soundex,prev_code
+
 def generate_soundex(name=None):
     if (not name) or (name == None):
         return ""
@@ -21,9 +27,10 @@ def generate_soundex(name=None):
     i = 1
     while ((i < len(name)) and len(soundex)<4):
       code = get_soundex_code(name[i])
-      if (code != '0' and code != prev_code) or ((name[i-1].upper() in ['A','E','I','O','U']) and code == prev_code):
-        soundex += code
-        prev_code = code
+      soundex, prev_code = code_checker(name,i,code,prev_code,soundex)
+      # if (code != '0' and code != prev_code) or ((name[i-1].upper() in ['A','E','I','O','U']) and code == prev_code):
+      #   soundex += code
+      #   prev_code = code
       i+=1
 
     # Pad with zeros if necessary

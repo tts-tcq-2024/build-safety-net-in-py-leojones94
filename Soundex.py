@@ -10,18 +10,12 @@ def get_soundex_code(c):
     }
     return mapping.get(c, '0')  # Default to '0' for non-mapped characters
 
-# def code_checker(name,i,code,prev_code,soundex):
-#    if (code != '0' and code != prev_code) or ((name[i-1].upper() in ['A','E','I','O','U']) and code == prev_code):
-#         soundex += code
-#         prev_code = code
-#    return soundex,prev_code
-
-def vowel_checker(name,i,code,prev_code,soundex):
+def vowel_checker(name,i,code,prev_code):
    if ((name[i-1].upper() in ['A','E','I','O','U']) and code == prev_code):
         return True
    return False
 
-def adjacent_checker(name,i,code,prev_code,soundex):
+def adjacent_checker(name,i,code,prev_code):
    if (code != '0' and code != prev_code):
       return True
    return False
@@ -41,13 +35,10 @@ def soundex_generate(name):
     while ((i < len(name)) and len(soundex)<4):
       code = get_soundex_code(name[i])
       soundex, prev_code = code_checker(name,i,code,prev_code,soundex)
-      # if (code != '0' and code != prev_code) or ((name[i-1].upper() in ['A','E','I','O','U']) and code == prev_code):
-      #   soundex += code
-      #   prev_code = code
       i+=1
 
-    # # Pad with zeros if necessary
-    # soundex = soundex.ljust(4, '0')
+    # Pad with zeros if necessary
+    soundex = soundex.ljust(4, '0')
 
     return soundex
 
@@ -56,21 +47,5 @@ def generate_soundex(name=None):
         return ""
     
     soundex = soundex_generate(name)
-
-    # # Start with the first letter (capitalized)
-    # soundex = name[0].upper()
-    # prev_code = get_soundex_code(soundex)
-
-    # i = 1
-    # while ((i < len(name)) and len(soundex)<4):
-    #   code = get_soundex_code(name[i])
-    #   soundex, prev_code = code_checker(name,i,code,prev_code,soundex)
-    #   # if (code != '0' and code != prev_code) or ((name[i-1].upper() in ['A','E','I','O','U']) and code == prev_code):
-    #   #   soundex += code
-    #   #   prev_code = code
-    #   i+=1
-
-    # Pad with zeros if necessary
-    soundex = soundex.ljust(4, '0')
-
+    
     return soundex

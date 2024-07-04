@@ -13,7 +13,7 @@ class TestSoundex(unittest.TestCase):
         self.assertEqual(generate_soundex("A"), "A000")
 
     def test_vowel_separated_character(self):
-        self.assertEqual(generate_soundex("Tymczak"), "T520")
+        self.assertEqual(generate_soundex("Tymczak"), "T522")
 
     
 if __name__ == '__main__':

@@ -11,7 +11,7 @@ def get_soundex_code(c):
     return mapping.get(c, '0')  # Default to '0' for non-mapped characters
 
 def generate_soundex(name=None):
-    if not name or name == None:
+    if (not name) or (name == None):
         return ""
 
     # Start with the first letter (capitalized)
@@ -19,9 +19,9 @@ def generate_soundex(name=None):
     prev_code = get_soundex_code(soundex)
 
     i = 1
-    while ((i < len(name)) and len(soundex)<=4):
+    while ((i < len(name)) and len(soundex)<4):
       code = get_soundex_code(name[i])
-      if code != '0' and code != prev_code:
+      if (code != '0' and code != prev_code) or ((name[i-1].upper() in ['A','E','I','O','U']) and code == prev_code):
         soundex += code
         prev_code = code
       i+=1

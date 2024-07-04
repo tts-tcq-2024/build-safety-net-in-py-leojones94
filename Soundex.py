@@ -10,11 +10,27 @@ def get_soundex_code(c):
     }
     return mapping.get(c, '0')  # Default to '0' for non-mapped characters
 
+# def code_checker(name,i,code,prev_code,soundex):
+#    if (code != '0' and code != prev_code) or ((name[i-1].upper() in ['A','E','I','O','U']) and code == prev_code):
+#         soundex += code
+#         prev_code = code
+#    return soundex,prev_code
+
+def vowel_checker(name,i,code,prev_code,soundex):
+   if ((name[i-1].upper() in ['A','E','I','O','U']) and code == prev_code):
+        return True
+   return False
+
+def adjacent_checker(name,i,code,prev_code,soundex):
+   if (code != '0' and code != prev_code):
+      return True
+   return False
+
 def code_checker(name,i,code,prev_code,soundex):
-   if (code != '0' and code != prev_code) or ((name[i-1].upper() in ['A','E','I','O','U']) and code == prev_code):
+    if ((vowel_checker == True) or (adjacent_checker == True)):
         soundex += code
         prev_code = code
-   return soundex,prev_code
+    return soundex,prev_code
 
 def generate_soundex(name=None):
     if (not name) or (name == None):

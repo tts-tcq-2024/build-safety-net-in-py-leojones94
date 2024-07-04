@@ -27,15 +27,12 @@ def adjacent_checker(name,i,code,prev_code,soundex):
    return False
 
 def code_checker(name,i,code,prev_code,soundex):
-    if ((vowel_checker == True) or (adjacent_checker == True)):
+    if ((vowel_checker(name,i,code,prev_code,soundex) == True) or (adjacent_checker(name,i,code,prev_code,soundex) == True)):
         soundex += code
         prev_code = code
     return soundex,prev_code
 
-def generate_soundex(name=None):
-    if (not name) or (name == None):
-        return ""
-
+def soundex_generate(name):
     # Start with the first letter (capitalized)
     soundex = name[0].upper()
     prev_code = get_soundex_code(soundex)
@@ -48,6 +45,30 @@ def generate_soundex(name=None):
       #   soundex += code
       #   prev_code = code
       i+=1
+
+    # # Pad with zeros if necessary
+    # soundex = soundex.ljust(4, '0')
+
+    return soundex
+
+def generate_soundex(name=None):
+    if (not name) or (name == None):
+        return ""
+    
+    soundex = soundex_generate(name)
+
+    # # Start with the first letter (capitalized)
+    # soundex = name[0].upper()
+    # prev_code = get_soundex_code(soundex)
+
+    # i = 1
+    # while ((i < len(name)) and len(soundex)<4):
+    #   code = get_soundex_code(name[i])
+    #   soundex, prev_code = code_checker(name,i,code,prev_code,soundex)
+    #   # if (code != '0' and code != prev_code) or ((name[i-1].upper() in ['A','E','I','O','U']) and code == prev_code):
+    #   #   soundex += code
+    #   #   prev_code = code
+    #   i+=1
 
     # Pad with zeros if necessary
     soundex = soundex.ljust(4, '0')
